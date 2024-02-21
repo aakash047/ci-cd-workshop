@@ -1,0 +1,23 @@
+apiVersion: numaflow.numaproj.io/v1alpha1
+kind: Pipeline
+metadata:
+  name: anomaly-detection-pl
+spec:
+  vertices:
+    - name: in
+      scale:
+        min: 1
+      source:
+        kafka:
+          brokers:
+          - kafka-broker:9092
+          topic: input-topic
+          consumerGroup: test
+    - name: out
+      scale:
+        min: 1
+      sink:
+        log: {}
+  edges:
+    - from: in
+      to: out

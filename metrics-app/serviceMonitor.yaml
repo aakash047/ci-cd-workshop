@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1 
+kind: ServiceMonitor 
+metadata:
+  name: flask-metrics
+  namespace: default
+  labels:
+    release: kube-prometheus-stack  # name of the release 
+    # ( VERY IMPORTANT: You need to know the correct release name by viewing 
+    # the servicemonitor of Prometheus itself: Without the correct name, 
+    #  Prometheus cannot identify the metrics of the Flask app as the target.)
+spec:
+  selector:
+    matchLabels:
+      # Target app service
+      svc: flask-service # same as above
+  endpoints:
+  - interval: 15s # scrape interval
+    path: /metrics # path to scrape
+    port: flask-svc # named port in target app
+    targetPort: 5001
+  namespaceSelector:
+    matchNames:
+    - default # namespace where the app is running

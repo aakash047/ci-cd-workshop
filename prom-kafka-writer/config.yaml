@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: promkafkawriter-config
+data:
+  KAFKA_BROKER_LIST: kafka-broker:9092
+  # KAFKA_SSL_CA_CERT_FILE: "/etc/intuit-event-bus-tls-config/ca-cert.pem"
+  PORT: "8080"
+  LOG_LEVEL: info
+  GIN_MODE: release
+  KAFKA_BATCH_SIZE: "500"
+  KAFKA_BATCH_TIMEOUT_MILLISECONDS: "1000"
+  KAFKA_SHARED_WRITER: "true"
+  MAX_REQUEST_PER_CONN: "10"
+  MAX_WORKERS: "4"
+  SAMPLE_CHANNEL_SIZE: "2000"
+  WORKER_BATCH_SIZE: "1800"
+  CONFIG_PATH: "/etc/promkafkawriter"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: promkafkawriter-topics-config
+data:
+  config.yaml: |
+    ---
+    topics:
+      - name: input-topic
+        tagpass:
+          path: ['/url1', '/url3']

@@ -59,16 +59,16 @@ Open the browser "https://localhost:5001/", try hitting the `/url1` and `/url3` 
 
 6. Install Kafka locally
 
-```base
+```bash
 kubectl apply -f minimal-kafka.yaml
 ```
 
 6. Deploying an application to write metrics from Prometheus to Kafka
 
-```base
-kubectl  apply -f prom-kafka-writer/config.yaml
-kubectl  apply -f prom-kafka-writer/deployment.yaml
-kubectl  apply -f prom-kafka-writer/service.yaml
+```bash
+kubectl apply -f prom-kafka-writer/config.yaml
+kubectl apply -f prom-kafka-writer/deployment.yaml
+kubectl apply -f prom-kafka-writer/service.yaml
 ```
 
 7. Install Numaflow

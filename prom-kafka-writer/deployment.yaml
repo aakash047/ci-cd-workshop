@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: promkafkawriter
+    app: promkafkawriter
+    name: promkafkawriter
+  name: promkafkawriter
+spec:
+  selector:
+    matchLabels:
+      k8s-app: promkafkawriter
+  template:
+    metadata:
+      labels:
+        k8s-app: promkafkawriter
+        app: promkafkawriter
+    spec:
+      containers:
+      - name: promkafkawriter
+        image: quay.io/veds-g/promkafka:v1
+        imagePullPolicy: IfNotPresent
+        command: []
+        envFrom:
+          - configMapRef:
+              name: promkafkawriter-config
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+        volumeMounts:
+          - name: topics-config
+            mountPath: /etc/promkafkawriter
+      volumes:
+        - name: topics-config
+          configMap:
+            name: promkafkawriter-topics-config
