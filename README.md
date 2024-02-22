@@ -7,6 +7,8 @@ The following steps are to install the anomaly detection pipeline in your Kubern
 
 ### Prerequisites
 
+- WSL(Windows Subsystem for Linux) - https://learn.microsoft.com/en-us/windows/wsl/install (required only if using windows)
+- HomeBrew - https://brew.sh/ (works only on macos, linux or WSL)
 - Docker Engine - https://docs.docker.com/engine/install/
 - `kubectl` CLI - https://kubernetes.io/docs/tasks/tools/#kubectl
 - `k3d` CLI - https://k3d.io/v5.6.0/#install-script
