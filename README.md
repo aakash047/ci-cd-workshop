@@ -10,6 +10,7 @@ The following steps are to install the anomaly detection pipeline in your Kubern
 - `kubectl` CLI
 - `k3d` CLI
 - `docker` CLI
+- `helm` CLI
 - Docker Engine
 
 ### Installation Steps
