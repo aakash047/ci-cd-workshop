@@ -105,8 +105,8 @@ kubectl get pods
 kubectl port-forward svc/flask-service 5001
 ```
 
-Open in the browser "http://localhost:5001/".\
-On hitting the `/url3` we should see message 'Hello World'.\ 
+Open in the browser "http://localhost:5001/",
+On hitting the `/url3` we should see message 'Hello World',
 Try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
 8. Install Kafka locally
