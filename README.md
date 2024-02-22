@@ -286,7 +286,7 @@ Navigate to the directory path which contains the Dockerfile in the repo and run
 docker build -t <username>/<image_name>:<tag>
 ```
 
-Example 'docker build -t trathi/metrics-app-image:1.0.0
+Example 'docker build -t trathi/metrics-app-image:1.0.0'
 
 4. To publish image to dockerhub run
 
