@@ -53,6 +53,8 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 ```bash
 argocd login --core
+```
+```bash
 argocd admin initial-password -n argocd
 ```
 
@@ -103,7 +105,7 @@ kubectl get pods
 kubectl port-forward svc/flask-service 5001
 ```
 
-Open in the browser "http://localhost:5001/"\
+Open in the browser "http://localhost:5001/".\
 On hitting the `/url3` we should see message 'Hello World'.\ 
 Try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
