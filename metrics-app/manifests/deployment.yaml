@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: quay.io/veds-g/metricsapp:v4
+          image: quay.io/veds-g/metricsapp:v5
           ports:
           - containerPort: 5001
