@@ -53,7 +53,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 ```bash
 argocd login --core
- argocd admin initial-password -n argocd
+argocd admin initial-password -n argocd
 ```
 
 5. Setup ArgoCD UI
@@ -63,6 +63,7 @@ kubectl port-forward svc/argocd-server -n argocd 8085:443
 ```
 Open in the browser "https://localhost:8085/", login with username="admin" and password from last step.
 Update the password in "user-info" tab and re-login
+
 
 6. Deploying a Flask application to emit metrics
 
@@ -78,6 +79,7 @@ kubectl apply -f metrics-app/manifests/serviceMonitor.yaml
 kubectl port-forward svc/flask-service 5001
 ```
 Open in the browser "http://localhost:5001/", try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
+
 
 8. Install Kafka locally
 
