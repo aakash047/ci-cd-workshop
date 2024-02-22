@@ -62,12 +62,12 @@ argocd admin initial-password -n argocd
 kubectl port-forward svc/argocd-server -n argocd 8085:443
 ```
 
-Open in the browser "https://localhost:8085/", login with username="admin" and password from last step.
+Open in the browser "https://localhost:8085/", login with username="admin" and password from last step.\
 Update the password in "user-info" tab and re-login
 
 6. Create Application in ArgoCD UI
 
-In the 'Applications' Tab, Click on 'NEW APP'.
+In the 'Applications' Tab, Click on 'NEW APP'.\
 Now Click on 'EDIT AS YAML' in top right and paste the following config
 
 ```bash
@@ -89,8 +89,8 @@ spec:
 
 ```
 
-Click 'Save' and then click 'Create'.
-Now on the 'workshop-metrics-app' App in 'Applications' Tab, Click on 'SYNC'.
+Click 'Save' and then click 'Create'.\
+Now on the 'workshop-metrics-app' App in 'Applications' Tab, Click on 'SYNC'.\
 Pods creation can be verified in terminal with
 
 ```bash
@@ -103,7 +103,9 @@ kubectl get pods
 kubectl port-forward svc/flask-service 5001
 ```
 
-Open in the browser "http://localhost:5001/", on hitting the `/url3` we should see message 'Hello World'. try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
+Open in the browser "http://localhost:5001/"\
+On hitting the `/url3` we should see message 'Hello World'.\ 
+Try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
 8. Install Kafka locally
 
