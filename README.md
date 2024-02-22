@@ -44,9 +44,9 @@ EOF
 3. Deploying a Flask application to emit metrics
 
 ```bash
-kubectl apply -f metrics-app/deployment.yaml
-kubectl apply -f metrics-app/service.yaml
-kubectl apply -f metrics-app/serviceMonitor.yaml
+kubectl apply -f metrics-app/manifests/deployment.yaml
+kubectl apply -f metrics-app/manifests/service.yaml
+kubectl apply -f metrics-app/manifests/serviceMonitor.yaml
 ```
 
 4. Emit metrics from the Flask application
@@ -54,21 +54,21 @@ kubectl apply -f metrics-app/serviceMonitor.yaml
 ```bash
 kubectl port-forward svc/flask-service 5001
 ```
-Open the browser "https://localhost:5001/", try hitting the `/url1` and `/url3` routes to generate metrics for respective routes.
+Open the browser "http://localhost:5001/", try hitting the `/url1` and `/url3` routes to generate metrics for respective routes.
 
 
 6. Install Kafka locally
 
 ```bash
-kubectl apply -f minimal-kafka.yaml
+kubectl apply -f anomaly-pl/manifests/minimal-kafka.yaml
 ```
 
 6. Deploying an application to write metrics from Prometheus to Kafka
 
 ```bash
-kubectl apply -f prom-kafka-writer/config.yaml
-kubectl apply -f prom-kafka-writer/deployment.yaml
-kubectl apply -f prom-kafka-writer/service.yaml
+kubectl apply -f prom-kafka-writer/manifests/config.yaml
+kubectl apply -f prom-kafka-writer/manifests/deployment.yaml
+kubectl apply -f prom-kafka-writer/manifests/service.yaml
 ```
 
 7. Install Numaflow
@@ -82,7 +82,7 @@ kubectl apply -f https://raw.githubusercontent.com/numaproj/numaflow/stable/exam
 8. Create the anomaly detection pipeline using Numaflow
 
 ```bash
-kubectl apply -f pipeline.yaml
+kubectl apply -f anomaly-pl/manifests/pipeline.yaml
 ```
 
 9. View the pipeline
