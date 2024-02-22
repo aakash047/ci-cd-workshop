@@ -28,3 +28,4 @@ data:
       - name: input-topic
         tagpass:
           path: ['/url1', '/url3']
+          le: ['0.5', '1.0', '1.5', '2.0', '100.0']

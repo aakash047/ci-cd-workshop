@@ -54,10 +54,10 @@ kubectl apply -f metrics-app/manifests/serviceMonitor.yaml
 ```bash
 kubectl port-forward svc/flask-service 5001
 ```
-Open the browser "http://localhost:5001/", try hitting the `/url1` and `/url3` routes to generate metrics for respective routes.
+Open the browser "http://localhost:5001/", try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
 
-6. Install Kafka locally
+5. Install Kafka locally
 
 ```bash
 kubectl apply -f anomaly-pl/manifests/minimal-kafka.yaml
