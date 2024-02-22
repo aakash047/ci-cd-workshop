@@ -7,7 +7,7 @@ The following steps are to install the anomaly detection pipeline in your Kubern
 
 ### Prerequisites
 
-- `kubectl` CLI
+- `kubectl` CLI - https://kubernetes.io/docs/tasks/tools/#kubectl
 - `k3d` CLI
 - `docker` CLI
 - `argocd` CLI
