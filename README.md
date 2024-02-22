@@ -61,16 +61,40 @@ argocd admin initial-password -n argocd
 ```bash
 kubectl port-forward svc/argocd-server -n argocd 8085:443
 ```
+
 Open in the browser "https://localhost:8085/", login with username="admin" and password from last step.
 Update the password in "user-info" tab and re-login
 
+6. Create Application in ArgoCD UI
 
-6. Deploying a Flask application to emit metrics
+In the 'Applications' Tab, Click on 'NEW APP'.
+Now Click on 'EDIT AS YAML' in top right and paste the following config
 
 ```bash
-kubectl apply -f metrics-app/manifests/deployment.yaml
-kubectl apply -f metrics-app/manifests/service.yaml
-kubectl apply -f metrics-app/manifests/serviceMonitor.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: workshop-metrics-app
+spec:
+  destination:
+    name: ''
+    namespace: default
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ./metrics-app/manifests/
+    repoURL: 'https://github.com/veds-g/ci-cd-workshop'
+    targetRevision: HEAD
+  sources: []
+  project: default
+
+```
+
+Click 'Save' and then click 'Create'.
+Now on the 'workshop-metrics-app' App in 'Applications' Tab, Click on 'SYNC'.
+Pods creation can be verified in terminal with
+
+```bash
+kubectl get pods
 ```
 
 7. Emit metrics from the Flask application
@@ -78,6 +102,7 @@ kubectl apply -f metrics-app/manifests/serviceMonitor.yaml
 ```bash
 kubectl port-forward svc/flask-service 5001
 ```
+
 Open in the browser "http://localhost:5001/", try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
 
