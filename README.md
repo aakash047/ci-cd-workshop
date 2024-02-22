@@ -7,12 +7,11 @@ The following steps are to install the anomaly detection pipeline in your Kubern
 
 ### Prerequisites
 
+- Docker Engine - https://docs.docker.com/engine/install/
 - `kubectl` CLI - https://kubernetes.io/docs/tasks/tools/#kubectl
-- `k3d` CLI
-- `docker` CLI
-- `argocd` CLI
-- `helm` CLI
-- Docker Engine
+- `k3d` CLI - https://k3d.io/v5.6.0/#install-script
+- `argocd` CLI - https://argo-cd.readthedocs.io/en/stable/cli_installation/
+- `helm` CLI - https://helm.sh/docs/intro/install/
 
 ### Installation Steps
 
@@ -269,3 +268,7 @@ Open the browser "https://localhost:8443/", then go to Numaflow UI, select `defa
 4. Now click promote in the top right corner of the rollouts dashboard
 
 5. We can now see the rest of the steps getting executed
+
+## Commands for docker image build and push to dockerhub
+
+
