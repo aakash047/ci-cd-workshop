@@ -45,4 +45,11 @@ def url2_get():
         'status': '200'
     }
 
+@app.route('/urlDummy')
+def urlDummy_get():
+    return {
+        'status': '200',
+        'message': 'Hello World!'
+    }
+
 app.run(host='0.0.0.0', port=5001)
