@@ -271,4 +271,25 @@ Open the browser "https://localhost:8443/", then go to Numaflow UI, select `defa
 
 ## Commands for docker image build and push to dockerhub
 
+1. Login to docker desktop using dockerhub account credentials.
 
+2. To access dockerhub from terminal run
+
+```bash
+docker login -u <username>
+```
+
+3. To build docker image\
+Navigate to the directory path which contains the Dockerfile in the repo and run
+
+```bash
+docker build -t <username>/<image_name>:<tag>
+```
+
+Example 'docker build -t trathi/metrics-app-image:1.0.0
+
+4. To publish image to dockerhub run
+
+```bash
+docker push <username>/<image_name>:<tag>
+```
