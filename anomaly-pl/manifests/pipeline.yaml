@@ -1,9 +1,11 @@
 apiVersion: numaflow.numaproj.io/v1alpha1
 kind: Pipeline
 metadata:
-  name: anomaly-detection-pl
+  # A pipeline to do sentiment analysis by using a hugging face model
+  name: anomaly-pl
 spec:
   vertices:
+    # Pipeline input, expects to receive a text.
     - name: in
       scale:
         min: 1
@@ -13,11 +15,22 @@ spec:
           - kafka-broker:9092
           topic: input-topic
           consumerGroup: test
-    - name: out
+    # Sentiment analysis, get the result
+    - name: anomaly-det
+      scale:
+        min: 1
+      udf:
+        container:
+          image: quay.io/yhl25/anomaly-pl:v0.0.1
+          imagePullPolicy: Always
+    # Display the sentiment in the log
+    - name: log
       scale:
         min: 1
       sink:
         log: {}
   edges:
     - from: in
-      to: out
+      to: anomaly-det
+    - from: anomaly-det
+      to: log

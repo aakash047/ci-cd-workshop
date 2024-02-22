@@ -4,7 +4,6 @@
 #
 #    pip-compile
 #
---index-url https://artifact.intuit.com/artifactory/api/pypi/pypi-intuit/simple
 
 blinker==1.7.0
     # via flask

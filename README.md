@@ -49,29 +49,69 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
-4. Deploying a Flask application to emit metrics
+4. Retrive login credentials for argoCD
 
 ```bash
-kubectl apply -f metrics-app/manifests/deployment.yaml
-kubectl apply -f metrics-app/manifests/service.yaml
-kubectl apply -f metrics-app/manifests/serviceMonitor.yaml
+argocd login --core
+argocd admin initial-password -n argocd
 ```
 
-5. Emit metrics from the Flask application
+5. Setup ArgoCD UI
+
+```bash
+kubectl port-forward svc/argocd-server -n argocd 8085:443
+```
+
+Open in the browser "https://localhost:8085/", login with username="admin" and password from last step.
+Update the password in "user-info" tab and re-login
+
+6. Create Application in ArgoCD UI
+
+In the 'Applications' Tab, Click on 'NEW APP'.
+Now Click on 'EDIT AS YAML' in top right and paste the following config
+
+```bash
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: workshop-metrics-app
+spec:
+  destination:
+    name: ''
+    namespace: default
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ./metrics-app/manifests/
+    repoURL: 'https://github.com/veds-g/ci-cd-workshop'
+    targetRevision: HEAD
+  sources: []
+  project: default
+
+```
+
+Click 'Save' and then click 'Create'.
+Now on the 'workshop-metrics-app' App in 'Applications' Tab, Click on 'SYNC'.
+Pods creation can be verified in terminal with
+
+```bash
+kubectl get pods
+```
+
+7. Emit metrics from the Flask application
 
 ```bash
 kubectl port-forward svc/flask-service 5001
 ```
-Open the browser "http://localhost:5001/", try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
+Open in the browser "http://localhost:5001/", try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
-6. Install Kafka locally
+8. Install Kafka locally
 
 ```bash
 kubectl apply -f anomaly-pl/manifests/minimal-kafka.yaml
 ```
 
-7. Deploying an application to write metrics from Prometheus to Kafka
+9. Deploying an application to write metrics from Prometheus to Kafka
 
 ```bash
 kubectl apply -f prom-kafka-writer/manifests/config.yaml
@@ -79,7 +119,7 @@ kubectl apply -f prom-kafka-writer/manifests/deployment.yaml
 kubectl apply -f prom-kafka-writer/manifests/service.yaml
 ```
 
-8. Install Numaflow
+10. Install Numaflow
 
 ```bash
 kubectl create ns numaflow-system
@@ -87,13 +127,13 @@ kubectl apply -n numaflow-system -f https://raw.githubusercontent.com/numaproj/n
 kubectl apply -f https://raw.githubusercontent.com/numaproj/numaflow/stable/examples/0-isbsvc-jetstream.yaml
 ```
 
-9. Create the anomaly detection pipeline using Numaflow
+11. Create the anomaly detection pipeline using Numaflow
 
 ```bash
 kubectl apply -f anomaly-pl/manifests/pipeline.yaml
 ```
 
-10. View the pipeline
+12. View the pipeline
 
 ```bash
 kubectl port-forward svc/numaflow-server 8443 -n numaflow-system
