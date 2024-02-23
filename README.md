@@ -163,6 +163,16 @@ Open the browser "https://localhost:8443/", then go to Numaflow UI, select `defa
 brew install argoproj/tap/kubectl-argo-rollouts
 ```
 
+Alternatively, if this command doesn't work, you can run the following commands to install the kubectl argo rollouts plugin
+
+```
+curl -LO https://github.com/argoproj/argo-rollouts/releases/latest/download/kubectl-argo-rollouts-linux-amd64
+chmod +x ./kubectl-argo-rollouts-linux-amd64
+sudo mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
+```
+
+PS: If you're using mac, replace linux with darwin when running the above commands
+
 ### Installing Argo Rollouts in your cluster
 
 1. Create a new namespace named argo-rollouts and install the Argo Rollout CRDs (Custom Resource Defintions):
@@ -173,17 +183,12 @@ brew install argoproj/tap/kubectl-argo-rollouts
 
 ### Creating the Rollout and its accompanying components
 
-1. Create a file named rollouts-demo.yaml with the following content:
-```bash
- 
-```
-
-2. Create the above defined rollout:
+1. Create the Argo Rollout:
     ```bash
-   kubectl apply -f rollouts-demo.yaml -n argo-rollouts
+   kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/manifests/rollouts_demo.yaml -n argo-rollouts
     ```
    
-3. Create the canary and stable services:
+2. Create the canary and stable services:
     ```bash
    kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master/docs/getting-started/nginx/services.yaml -n argo-rollouts
     ```
@@ -196,17 +201,12 @@ brew install argoproj/tap/kubectl-argo-rollouts
     kubectl create service clusterip nginx --tcp=80:80 -n argo-rollouts
     ```
 
-2. Create a file called rollouts_ingress.yaml with the following content:
-```bash
-
-```
-
-3. Create the ingress resource
+2. Create the ingress resource
     ```
-   kubectl apply -f rollouts_ingress.yaml -n argo-rollouts
+   kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/manifests/rollouts_ingress.yaml -n argo-rollouts
    ```
 
-4. Open http://localhost:8081/ in your browser to access
+3. Open http://localhost:8081/ in your browser to access
 
 
 ### Rolling out 
