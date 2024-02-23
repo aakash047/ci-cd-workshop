@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: docker.io/trathi1526/metrics-app-image:3.1.0
+          image: docker.io/trathi1526/metrics-app-image:3.0.0
           ports:
           - containerPort: 5001
