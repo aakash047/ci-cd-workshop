@@ -258,7 +258,7 @@ spec:
    kubectl apply -f rollouts_ingress.yaml -n argo-rollouts
    ```
 
-4. Open https://localhost:8081/ in your browser to access
+4. Open http://localhost:8081/ in your browser to access
 
 
 ### Rolling out 
