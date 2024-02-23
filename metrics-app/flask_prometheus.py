@@ -103,7 +103,7 @@ def url2_get():
 def url3_get():
     return {
         'status': '200',
-        'message': 'Hello NIT Trichy'
+        'message': 'Hello World'
     }
 
 app.run(host='0.0.0.0', port=5001)
