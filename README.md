@@ -197,7 +197,7 @@ spec:
     spec:
       containers:
       - name: rollouts-demo
-        image: docker.io/library/argo:blue
+        image: argoproj/rollouts-demo:blue
         imagePullPolicy: Never
         ports:
         - name: http
