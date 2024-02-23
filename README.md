@@ -7,11 +7,13 @@ The following steps are to install the anomaly detection pipeline in your Kubern
 
 ### Prerequisites
 
-- `kubectl` CLI
-- `k3d` CLI
-- `docker` CLI
-- `helm` CLI
-- Docker Engine
+- WSL(Windows Subsystem for Linux) - https://learn.microsoft.com/en-us/windows/wsl/install (required only if using windows)
+- HomeBrew - https://brew.sh/ (works only on macos, linux or WSL)
+- Docker Engine - https://docs.docker.com/engine/install/ (for WSL follow https://docs.docker.com/desktop/wsl/ as well)
+- `kubectl` CLI - https://kubernetes.io/docs/tasks/tools/#kubectl
+- `k3d` CLI - https://k3d.io/v5.6.0/#install-script
+- `argocd` CLI - https://argo-cd.readthedocs.io/en/stable/cli_installation/
+- `helm` CLI - https://helm.sh/docs/intro/install/
 
 ### Installation Steps
 
@@ -53,6 +55,8 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 ```bash
 argocd login --core
+```
+```bash
 argocd admin initial-password -n argocd
 ```
 
@@ -62,12 +66,12 @@ argocd admin initial-password -n argocd
 kubectl port-forward svc/argocd-server -n argocd 8085:443
 ```
 
-Open in the browser "https://localhost:8085/", login with username="admin" and password from last step.
+Open in the browser "https://localhost:8085/", login with username="admin" and password from last step.\
 Update the password in "user-info" tab and re-login
 
 6. Create Application in ArgoCD UI
 
-In the 'Applications' Tab, Click on 'NEW APP'.
+In the 'Applications' Tab, Click on 'NEW APP'.\
 Now Click on 'EDIT AS YAML' in top right and paste the following config
 
 ```bash
@@ -89,8 +93,8 @@ spec:
 
 ```
 
-Click 'Save' and then click 'Create'.
-Now on the 'workshop-metrics-app' App in 'Applications' Tab, Click on 'SYNC'.
+Click 'Save' and then click 'Create'.\
+Now on the 'workshop-metrics-app' App in 'Applications' Tab, Click on 'SYNC'.\
 Pods creation can be verified in terminal with
 
 ```bash
@@ -103,7 +107,9 @@ kubectl get pods
 kubectl port-forward svc/flask-service 5001
 ```
 
-Open in the browser "http://localhost:5001/", try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
+Open in the browser "http://localhost:5001/",
+On hitting the `/url3` we should see message 'Hello World',
+Try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
 8. Install Kafka locally
 
@@ -266,3 +272,28 @@ spec:
 4. Now click promote in the top right corner of the rollouts dashboard
 
 5. We can now see the rest of the steps getting executed
+
+## Commands for docker image build and push to dockerhub
+
+1. Login to docker desktop using dockerhub account credentials.
+
+2. To access dockerhub from terminal run
+
+```bash
+docker login -u <username>
+```
+
+3. To build docker image\
+Navigate to the directory path which contains the Dockerfile in the repo and run
+
+```bash
+docker build -t <username>/<image_name>:<tag>
+```
+
+Example 'docker build -t trathi/metrics-app-image:1.0.0'
+
+4. To publish image to dockerhub run
+
+```bash
+docker push <username>/<image_name>:<tag>
+```

@@ -102,7 +102,8 @@ def url2_get():
 @app.route('/url3')
 def url3_get():
     return {
-        'status': 'Hello World'
+        'status': '200',
+        'message': 'Hello World'
     }
 
 app.run(host='0.0.0.0', port=5001)
