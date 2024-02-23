@@ -7,13 +7,31 @@ The following steps are to install the anomaly detection pipeline in your Kubern
 
 ### Prerequisites
 
-- WSL(Windows Subsystem for Linux) - https://learn.microsoft.com/en-us/windows/wsl/install (required only if using windows)
-- HomeBrew - https://brew.sh/ (works only on macos, linux or WSL)
-- Docker Engine - https://docs.docker.com/engine/install/ (for WSL follow https://docs.docker.com/desktop/wsl/ as well)
-- `kubectl` CLI - https://kubernetes.io/docs/tasks/tools/#kubectl
-- `k3d` CLI - https://k3d.io/v5.6.0/#install-script
-- `argocd` CLI - https://argo-cd.readthedocs.io/en/stable/cli_installation/
-- `helm` CLI - https://helm.sh/docs/intro/install/
+- [Docker Engine](https://docs.docker.com/desktop/install/windows-install/)
+- [WSL(Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install)
+```bash
+wsl --install
+```
+- [HomeBrew](https://brew.sh/)
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+- [`kubectl`](https://kubernetes.io/docs/tasks/tools/#kubectl)
+```bash
+brew install kubectl
+```
+- [`k3d`](https://k3d.io/v5.6.0/#install-script)
+```bash
+brew install k3d
+```
+- [`argocd`](https://argo-cd.readthedocs.io/en/stable/cli_installation/)
+```bash
+brew install argocd
+```
+- [`helm`](https://helm.sh/docs/intro/install/)
+```bash
+brew install helm
+```
 
 ### Installation Steps
 
@@ -51,7 +69,7 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
-4. Retrive login credentials for argoCD
+4. Retrieve login credentials for argoCD
 
 ```bash
 argocd login --core
@@ -69,7 +87,7 @@ kubectl port-forward svc/argocd-server -n argocd 8085:443
 Open in the browser "https://localhost:8085/", login with username="admin" and password from last step.\
 Update the password in "user-info" tab and re-login
 
-6. Create Application in ArgoCD UI
+6. Create an application using ArgoCD UI
 
 In the 'Applications' Tab, Click on 'NEW APP'.\
 Now Click on 'EDIT AS YAML' in top right and paste the following config
@@ -90,7 +108,6 @@ spec:
     targetRevision: HEAD
   sources: []
   project: default
-
 ```
 
 Click 'Save' and then click 'Create'.\
@@ -107,22 +124,22 @@ kubectl get pods
 kubectl port-forward svc/flask-service 5001
 ```
 
-Open in the browser "http://localhost:5001/",
+Open in the browser "https://localhost:5001/",
 On hitting the `/url3` we should see message 'Hello World',
 Try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
 8. Install Kafka locally
 
 ```bash
-kubectl apply -f anomaly-pl/manifests/minimal-kafka.yaml
+kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/anomaly-pl/manifests/minimal-kafka.yaml
 ```
 
 9. Deploying an application to write metrics from Prometheus to Kafka
 
 ```bash
-kubectl apply -f prom-kafka-writer/manifests/config.yaml
-kubectl apply -f prom-kafka-writer/manifests/deployment.yaml
-kubectl apply -f prom-kafka-writer/manifests/service.yaml
+kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/prom-kafka-writer/manifests/config.yaml
+kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/prom-kafka-writer/manifests/deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/prom-kafka-writer/manifests/service.yaml
 ```
 
 10. Install Numaflow
@@ -136,7 +153,7 @@ kubectl apply -f https://raw.githubusercontent.com/numaproj/numaflow/stable/exam
 11. Create the anomaly detection pipeline using Numaflow
 
 ```bash
-kubectl apply -f anomaly-pl/manifests/pipeline.yaml
+kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/anomaly-pl/manifests/pipeline.yaml
 ```
 
 12. View the pipeline
@@ -185,7 +202,7 @@ PS: If you're using mac, replace linux with darwin when running the above comman
 
 1. Create the Argo Rollout:
     ```bash
-   kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/manifests/rollouts_demo.yaml -n argo-rollouts
+   kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/argo-rollouts/manifests/rollouts_demo.yaml -n argo-rollouts
     ```
    
 2. Create the canary and stable services:
@@ -203,7 +220,7 @@ PS: If you're using mac, replace linux with darwin when running the above comman
 
 2. Create the ingress resource
     ```
-   kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/manifests/rollouts_ingress.yaml -n argo-rollouts
+   kubectl apply -f https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/argo-rollouts/manifests/rollouts_ingress.yaml -n argo-rollouts
    ```
 
 3. Open http://localhost:8081/ in your browser to access
