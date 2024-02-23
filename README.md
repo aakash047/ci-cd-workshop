@@ -234,25 +234,25 @@ spec:
     ```
 
 2. Create a file called rollouts_ingress.yaml with the following content:
-    ```bash
-    apiVersion: networking.k8s.io/v1
-    kind: Ingress
-    metadata:
-    name: nginx
-    annotations:
+```bash
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
-    spec:
-    rules:
-    - http:
+spec:
+  rules:
+  - http:
       paths:
-        - path: /
-          pathType: Prefix
-          backend:
+      - path: /
+        pathType: Prefix
+        backend:
           service:
-          name: rollouts-demo-stable
-          port:
-          number: 80
-   ```
+            name: rollouts-demo-stable
+            port:
+              number: 80
+```
 
 3. Create the ingress resource
     ```
