@@ -150,6 +150,13 @@ Open the browser "https://localhost:8443/", then go to Numaflow UI, select `defa
 
 ## Argo Rollouts
 
+### Installing the Argo Rollouts Plugin (Windows)
+1. Navigate to https://github.com/argoproj/argo-rollouts/releases and download the executable corresponding to your operating system
+2. Extract the file to a directory in your system and rename it to kubectl-argo-rollouts.exe (Windows)
+3. Add the path of the directory to your PATH
+4. Close all existing cmds and open a new one
+5. Run kubectl-argo-rollouts version to validate your installation
+
 ### Installing Argo Rollouts in your cluster
 
 1. Create a new namespace named argo-rollouts and install the Argo Rollout CRDs (Custom Resource Defintions):
