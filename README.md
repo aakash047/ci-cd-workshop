@@ -8,29 +8,25 @@ The following steps are to install the anomaly detection pipeline in your Kubern
 ### Prerequisites
 
 - [Docker Engine](https://docs.docker.com/desktop/install/windows-install/)
-- [WSL(Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install)
+- [Chocolatey](https://chocolatey.org/install)
 ```bash
-wsl --install
-```
-- [HomeBrew](https://brew.sh/)
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 ```
 - [`kubectl`](https://kubernetes.io/docs/tasks/tools/#kubectl)
 ```bash
-brew install kubectl
+choco install kubernetes-cli
 ```
 - [`k3d`](https://k3d.io/v5.6.0/#install-script)
 ```bash
-brew install k3d
+choco install k3d
 ```
 - [`argocd`](https://argo-cd.readthedocs.io/en/stable/cli_installation/)
 ```bash
-brew install argocd
+choco install argocd-cli
 ```
 - [`helm`](https://helm.sh/docs/intro/install/)
 ```bash
-brew install helm
+choco install kubernetes-helm
 ```
 
 ### Installation Steps
