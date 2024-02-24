@@ -57,11 +57,9 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 4. Retrieve login credentials for argoCD
 
 ```bash
-argocd login --core
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}"
 ```
-```bash
-argocd admin initial-password -n argocd
-```
+use https://www.base64decode.org/ to decode the password
 
 5. Setup ArgoCD UI
 
@@ -109,7 +107,7 @@ kubectl get pods
 kubectl port-forward svc/flask-service 5001
 ```
 
-Open in the browser "https://localhost:5001/",
+Open in the browser "http://localhost:5001/",
 On hitting the `/url3` we should see message 'Hello World',
 Try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
