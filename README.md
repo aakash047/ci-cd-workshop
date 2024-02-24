@@ -28,6 +28,10 @@ choco install argocd-cli
 ```bash
 choco install kubernetes-helm
 ```
+- `git`
+```bash
+choco install git
+```
 
 ### Installation Steps
 
@@ -40,22 +44,7 @@ k3d cluster create ci-cd-workshop-cluster --api-port 6550 -p "8081:80@loadbalanc
 2. Installing Prometheus Operator using helm
 
 ```bash
-helm install --wait --timeout 15m \
-   --repo https://prometheus-community.github.io/helm-charts \
-   kube-prometheus-stack kube-prometheus-stack --values - <<EOF
-prometheus:
-    prometheusSpec:
-        remoteWrite:
-            - queueConfig:
-                batchSendDeadline: 10s
-                capacity: 10000
-                maxBackoff: 100ms
-                maxSamplesPerSend: 1000
-                maxShards: 100
-                minBackoff: 30ms
-                minShards: 10
-              url: http://promkafkawriter-metrics:8080/receive
-EOF
+helm install --wait --timeout 15m --repo https://prometheus-community.github.io/helm-charts kube-prometheus-stack kube-prometheus-stack --values promConfig.txt
 ```
 
 3. Create ArgoCD namespace and install ArgoCD to the cluster

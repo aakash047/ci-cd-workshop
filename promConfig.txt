@@ -1,0 +1,12 @@
+prometheus:
+    prometheusSpec:
+        remoteWrite:
+            - queueConfig:
+                batchSendDeadline: 10s
+                capacity: 10000
+                maxBackoff: 100ms
+                maxSamplesPerSend: 1000
+                maxShards: 100
+                minBackoff: 30ms
+                minShards: 10
+              url: http://promkafkawriter-metrics:8080/receive
