@@ -128,7 +128,7 @@ Open in the browser "https://localhost:5001/",
 On hitting the `/url3` we should see message 'Hello World',
 Try hitting the `/url1` and `/url2` routes to generate metrics for respective routes.
 
-##Anomaly Detection Flow
+## Anomaly Detection Flow
 ![alt text](Flow-Light.png)
 
 8. Install Kafka locally
