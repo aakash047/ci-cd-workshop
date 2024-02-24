@@ -1,3 +1,5 @@
+import json
+
 from pynumaflow.mapper import Messages, Message, Datum, Mapper
 
 import pandas as pd
@@ -25,12 +27,8 @@ def train_model(data_path):
     return linear_regressor
 
 
-def predict(model, input_data):
-    return model.predict(input_data)
-
-
 # train model
-model = train_model('yourfile.csv')
+model = train_model('https://raw.githubusercontent.com/veds-g/ci-cd-workshop/master/anomaly-pl/output.csv')
 
 
 def my_handler(keys: list[str], datum: Datum) -> Messages:
@@ -38,10 +36,22 @@ def my_handler(keys: list[str], datum: Datum) -> Messages:
     _ = datum.event_time
     _ = datum.watermark
     messages = Messages()
-    messages.append(Message(value=val, keys=keys))
+    # value will be in json string convert to dict and extract "le" field which is inside "labels" map
+    d = json.loads(val)
+    print(d['value'], "\n")
+    le = d['value']
+
+    print(int(le), "\n")
+    predicted_val = model.predict([[int(le)]])
+    print("predicted - ", predicted_val, "\n")
+    # create a json like {"anomaly_score": predicted_val}
+    output = json.dumps({"anomaly_score": predicted_val[0]}).encode("utf-8")
+    messages.append(Message(value=output, keys=keys))
     return messages
 
 
 if __name__ == "__main__":
+    temp = model.predict([[1.5]])
+    print(temp)
     grpc_server = Mapper(handler=my_handler)
     grpc_server.start()
